@@ -1,13 +1,13 @@
 <?php
 
-namespace Reaction\Dep;
+namespace Reaction\DI;
 
-use Reaction\Dep\Exceptions\EntryNotFoundException;
-use Reaction\Exceptions\NotInstantiableException;
-use ReflectionClass;
+use Reaction\DI\Exceptions\NotInstantiableException;
 use Reaction\Base\Component;
-use Reaction\Dep\Exceptions\InvalidConfigException;
+use Reaction\DI\Exceptions\EntryNotFoundException;
+use Reaction\DI\Exceptions\InvalidConfigException;
 use Reaction\Helpers\ArrayHelper;
+use ReflectionClass;
 
 /**
  * Container implements a [dependency injection](http://en.wikipedia.org/wiki/Dependency_injection) container.
@@ -478,7 +478,6 @@ class Container extends Component implements ExtendedContainerInterface
      * @throws NotInstantiableException If resolved to an abstract class or an interface
      * @throws InvalidConfigException
      * @return object the newly created instance of the specified class
-     * @throws EntryNotFoundException
      */
     protected function build($class, $params, $config)
     {
@@ -637,7 +636,7 @@ class Container extends Component implements ExtendedContainerInterface
 
     /**
      * Extract class name from definition objects
-     * @param $definition
+     * @param mixed $definition
      * @return mixed|null|string
      * @throws InvalidConfigException
      * @throws NotInstantiableException

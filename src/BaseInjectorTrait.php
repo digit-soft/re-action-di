@@ -1,6 +1,6 @@
 <?php
 
-namespace Reaction\Dep;
+namespace Reaction\DI;
 
 use Reaction\Events\EventEmitterWildcardInterface;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Reaction\Dep;
+namespace Reaction\DI;
 
 use Closure;
 use Reaction;
@@ -269,7 +269,6 @@ class ServiceLocator extends Component
      * ```
      *
      * @param array $components component definitions or instances
-     * @throws InvalidConfigException
      */
     public function setComponents(array $components = [])
     {
@@ -285,8 +284,6 @@ class ServiceLocator extends Component
      * if components implementing ComponentInitBlockingInterface or immediately if not.
      * Warning: Initializes component one by one in given order
      * @return Reaction\Promise\ExtendedPromiseInterface
-     * @throws InvalidConfigException
-     * @throws \Reaction\Exceptions\NotInstantiableException
      */
     public function loadComponents() {
         $promises = [];
@@ -328,8 +325,6 @@ class ServiceLocator extends Component
      * Check for component auto loading possibility
      * @param string $componentName
      * @return null|object
-     * @throws InvalidConfigException
-     * @throws \Reaction\Exceptions\NotInstantiableException
      */
     protected function checkComponentAutoload($componentName) {
         if (!isset($this->_definitions[$componentName]) || isset($this->_components[$componentName])) {

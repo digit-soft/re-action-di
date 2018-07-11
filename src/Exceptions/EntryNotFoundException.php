@@ -1,6 +1,6 @@
 <?php
 
-namespace Reaction\Dep\Exceptions;
+namespace Reaction\DI\Exceptions;
 
 use Psr\Container\NotFoundExceptionInterface;
 

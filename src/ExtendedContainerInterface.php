@@ -1,11 +1,11 @@
 <?php
 
-namespace Reaction\Dep;
+namespace Reaction\DI;
 
 use Psr\Container\ContainerInterface;
-use Reaction\Dep\Exceptions\EntryNotFoundException;
-use Reaction\Dep\Exceptions\InvalidConfigException;
-use Reaction\Exceptions\NotInstantiableException;
+use Reaction\DI\Exceptions\EntryNotFoundException;
+use Reaction\DI\Exceptions\InvalidConfigException;
+use Reaction\DI\Exceptions\NotInstantiableException;
 
 /**
  * DI Container with extended functionality
@@ -29,7 +29,7 @@ interface ExtendedContainerInterface extends ContainerInterface
      *
      * ```php
      * // register a class name as is. This can be skipped.
-     * $container->set('Reaction\Db\Connection');
+     * $container->set('Reaction\Db\Database');
      *
      * // register an interface
      * // When a class depends on the interface, the corresponding class
@@ -38,11 +38,11 @@ interface ExtendedContainerInterface extends ContainerInterface
      *
      * // register an alias name. You can use $container->get('foo')
      * // to create an instance of Connection
-     * $container->set('foo', 'Reaction\Db\Connection');
+     * $container->set('foo', 'Reaction\Db\Database');
      *
      * // register a class with configuration. The configuration
      * // will be applied when the class is instantiated by get()
-     * $container->set('Reaction\Db\Connection', [
+     * $container->set('Reaction\Db\Database', [
      *     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
      *     'username' => 'root',
      *     'password' => '',
@@ -52,7 +52,7 @@ interface ExtendedContainerInterface extends ContainerInterface
      * // register an alias name with class configuration
      * // In this case, a "class" element is required to specify the class
      * $container->set('db', [
-     *     'class' => 'Reaction\Db\Connection',
+     *     'class' => 'Reaction\Db\Database',
      *     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
      *     'username' => 'root',
      *     'password' => '',
@@ -62,7 +62,7 @@ interface ExtendedContainerInterface extends ContainerInterface
      * // register a PHP callable
      * // The callable will be executed when $container->get('db') is called
      * $container->set('db', function ($container, $params, $config) {
-     *     return new \Reaction\Db\Connection($config);
+     *     return new \Reaction\Db\Database($config);
      * });
      * ```
      *

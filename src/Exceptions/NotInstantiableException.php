@@ -1,9 +1,11 @@
 <?php
 
-namespace Reaction\Dep\Exceptions;
+namespace Reaction\DI\Exceptions;
 
-use Reaction\DI\Exceptions\InvalidConfigException;
-
+/**
+ * Exception must be thrown when DI container can not instantiate an object (interface | abstract class).
+ * @package Reaction\DI\Exceptions
+ */
 class NotInstantiableException extends InvalidConfigException
 {
     /**

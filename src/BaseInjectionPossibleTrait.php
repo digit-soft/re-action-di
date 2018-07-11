@@ -1,9 +1,8 @@
 <?php
 
-namespace Reaction\Dep;
+namespace Reaction\DI;
 
 /**
- * Trait BaseInjectionPossibleTrait.
  * Basic trait that can be used by other classes implementing Reaction\DI\InjectionPossibleInterface
  * @package Reaction\DI
  */

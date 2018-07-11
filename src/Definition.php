@@ -1,9 +1,9 @@
 <?php
 
-namespace Reaction\Dep;
+namespace Reaction\DI;
 
 /**
- * Class Definition. DI container definition builder
+ * DI container definition builder.
  * Example:
  * ```
  * Definition::of('App\TestClass')->withParams(['testString'])

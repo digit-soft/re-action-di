@@ -1,6 +1,6 @@
 <?php
 
-namespace Reaction\Dep;
+namespace Reaction\DI;
 
 use Reaction\Exceptions\InvalidConfigException;
 
@@ -20,11 +20,11 @@ use Reaction\Exceptions\InvalidConfigException;
  * ```php
  * $container = new \Reaction\DI\Container;
  * $container->set('cache', [
- *     'class' => 'Reaction\Caching\DbCache',
+ *     'class' => 'Reaction\Cache\DbCache',
  *     'db' => Instance::of('db')
  * ]);
  * $container->set('db', [
- *     'class' => 'Reaction\Db\Connection',
+ *     'class' => 'Reaction\Db\Database',
  *     'dsn' => 'sqlite:path/to/file.db',
  * ]);
  * ```
