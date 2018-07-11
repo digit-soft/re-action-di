@@ -693,6 +693,7 @@ class Container extends Component implements ExtendedContainerInterface
         return $definition->dumpArrayDefinition();
     }
 
+
     /**
      * Get default container instance
      * @return null|Container
@@ -721,5 +722,14 @@ class Container extends Component implements ExtendedContainerInterface
     public static function getDefaultServiceLocator()
     {
         return static::$_serviceLocator;
+    }
+
+    /**
+     * Set default service locator
+     * @param ServiceLocator $serviceLocator
+     */
+    public static function setDefaultServiceLocator($serviceLocator)
+    {
+        static::$_serviceLocator = $serviceLocator;
     }
 }

@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Reaction\\Dep\\": "src/"
+            "Reaction\\DI\\": "src/"
         }
     }
 }
