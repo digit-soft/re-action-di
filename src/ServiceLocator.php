@@ -43,7 +43,7 @@ use Reaction\Helpers\ReflectionHelper;
  * definition or instance).
  * @property bool  $componentsAutoloadEnabled
  */
-class ServiceLocator extends Component
+class ServiceLocator extends Component implements ServiceLocatorInterface
 {
     /**
      * @var array shared component instances indexed by their IDs

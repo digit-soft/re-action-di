@@ -3,7 +3,6 @@
 namespace Reaction\DI;
 
 use Psr\Container\ContainerInterface;
-use Reaction\DI\Exceptions\EntryNotFoundException;
 use Reaction\DI\Exceptions\InvalidConfigException;
 use Reaction\DI\Exceptions\NotInstantiableException;
 
@@ -115,6 +114,17 @@ interface ExtendedContainerInterface extends ContainerInterface
     public function create($class, $params = [], $config = []);
 
     /**
+     * Create new object instance or get if set in definitions
+     * @param string $class
+     * @param array $params
+     * @param array $config
+     * @return object
+     * @throws InvalidConfigException
+     * @throws NotInstantiableException
+     */
+    public function getOrCreate($class, $params = [], $config = []);
+
+    /**
      * Removes the definition for the specified name.
      * @param string $class class name, interface name or alias name
      */
@@ -144,7 +154,6 @@ interface ExtendedContainerInterface extends ContainerInterface
      * @return mixed the callback return value.
      * @throws InvalidConfigException if a dependency cannot be resolved or if a dependency cannot be fulfilled.
      * @throws NotInstantiableException If resolved to an abstract class or an interface
-     * @throws EntryNotFoundException If entry is not defined in container
      */
     public function invoke(callable $callback, $params = []);
 

@@ -97,7 +97,7 @@ class Container extends Component implements ExtendedContainerInterface
      */
     protected static $_container;
     /**
-     * @var ServiceLocator|null Default service locator instance
+     * @var ServiceLocatorInterface|null Default service locator instance
      */
     protected static $_serviceLocator;
 
@@ -166,6 +166,7 @@ class Container extends Component implements ExtendedContainerInterface
             // singleton
             return $this->_singletons[$class];
         } elseif (!isset($this->_definitions[$class])) {
+            //return $this->build($class, $params, $config);
             throw new EntryNotFoundException(sprintf('Entry with ID or className "%s" not found', $class));
         }
 
@@ -192,7 +193,7 @@ class Container extends Component implements ExtendedContainerInterface
             if ($concrete === $class) {
                 $object = $this->build($class, $params, $config);
             } else {
-                $object = $this->get($concrete, $params, $config);
+                $object = $this->getOrCreate($concrete, $params, $config);
             }
         } elseif (is_object($definition)) {
             return $this->_singletons[$class] = $definition;
@@ -285,6 +286,16 @@ class Container extends Component implements ExtendedContainerInterface
     public function create($class, $params = [], $config = [])
     {
         return $this->build($class, $params, $config);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getOrCreate($class, $params = [], $config = [])
+    {
+        return $this->has($class)
+            ? $this->get($class, $params, $config)
+            : $this->build($class, $params, $config);
     }
 
     /**
@@ -403,7 +414,6 @@ class Container extends Component implements ExtendedContainerInterface
      * @return array The resolved dependencies.
      * @throws InvalidConfigException if a dependency cannot be resolved or if a dependency cannot be fulfilled.
      * @throws NotInstantiableException If resolved to an abstract class or an interface
-     * @throws EntryNotFoundException
      */
     public function resolveCallableDependencies(callable $callback, $params = [])
     {
@@ -437,9 +447,7 @@ class Container extends Component implements ExtendedContainerInterface
                 } else {
                     // If the argument is optional we catch not instantiable exceptions
                     try {
-                        $args[] = $this->has($className)
-                            ? $this->get($className)
-                            : $this->create($className);
+                        $args[] = $this->getOrCreate($className);
                     } catch (NotInstantiableException $e) {
                         if ($param->isDefaultValueAvailable()) {
                             $args[] = $param->getDefaultValue();
@@ -618,9 +626,7 @@ class Container extends Component implements ExtendedContainerInterface
         foreach ($dependencies as $index => $dependency) {
             if ($dependency instanceof Instance) {
                 if ($dependency->id !== null) {
-                    $dependencies[$index] = $this->has($dependency->id)
-                        ? $this->get($dependency->id)
-                        : $this->create($dependency->id);
+                    $dependencies[$index] = $this->getOrCreate($dependency->id);
                 } elseif ($reflection !== null) {
                     $name = $reflection->getConstructor()->getParameters()[$index]->getName();
                     $class = $reflection->getName();
@@ -716,7 +722,7 @@ class Container extends Component implements ExtendedContainerInterface
 
     /**
      * Get default service locator
-     * @return ServiceLocator|null
+     * @return ServiceLocatorInterface|null
      */
     public static function getDefaultServiceLocator()
     {
@@ -725,7 +731,7 @@ class Container extends Component implements ExtendedContainerInterface
 
     /**
      * Set default service locator
-     * @param ServiceLocator $serviceLocator
+     * @param ServiceLocatorInterface $serviceLocator
      */
     public static function setDefaultServiceLocator($serviceLocator)
     {
