@@ -1,6 +1,6 @@
 # Re-action DI
 ### Dependency injection container for re-action framework
-####Usage
+#### Usage
 ```php
 //Creation
 $container = new \Reaction\DI\Container([
@@ -10,6 +10,8 @@ $container = new \Reaction\DI\Container([
             'property_1' => 1,
             'property_2' => InstanceOf('Component\Class\Path2'),
         ],
+        //Alias
+        'componentAlias' => 'componentId',
     ],
     'singletons' => [
         'componentId2' => 'componentId2',
