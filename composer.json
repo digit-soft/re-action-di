@@ -1,6 +1,6 @@
 {
     "name": "digit-soft/re-action-di",
-    "version": "0.2.0",
+    "version": "1.0.0",
     "description": "React PHP framework DI",
     "keywords": ["digit-soft", "reactphp", "re-action", "dependency injection", "di", "react php framework"],
     "license": "MIT",
