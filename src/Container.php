@@ -92,6 +92,15 @@ use Reaction\Helpers\ArrayHelper;
 class Container extends Component
 {
     /**
+     * @var Container|null Default DI Container instance
+     */
+    protected static $_container;
+    /**
+     * @var ServiceLocator|null Default service locator instance
+     */
+    protected static $_serviceLocator;
+
+    /**
      * @var array singleton objects indexed by their types
      */
     private $_singletons = [];
@@ -758,5 +767,35 @@ class Container extends Component
             return [];
         }
         return $definition->dumpArrayDefinition();
+    }
+
+    /**
+     * Get default container instance
+     * @return null|Container
+     */
+    public static function getDefaultContainer()
+    {
+        if (!isset(static::$_container)) {
+            static::$_container = new static();
+        }
+        return static::$_container;
+    }
+
+    /**
+     * Get default container instance
+     * @param Container $container
+     */
+    public static function setDefaultContainer(Container $container)
+    {
+        static::$_container = $container;
+    }
+
+    /**
+     * Get default service locator
+     * @return ServiceLocator|null
+     */
+    public static function getDefaultServiceLocator()
+    {
+        return static::$_serviceLocator;
     }
 }
