@@ -104,7 +104,7 @@ class Instance
         if (is_array($reference)) {
             $class = isset($reference['class']) ? $reference['class'] : $type;
             if (!$container instanceof Container) {
-                $container = \Reaction::$di;
+                $container = Container::getDefaultContainer();
             }
             unset($reference['class']);
             $component = $container->get($class, [], $reference);
@@ -150,14 +150,18 @@ class Instance
     public function get($container = null)
     {
         if ($container) {
-            return $container->get($this->id);
+            return $container->getOrCreate($this->id);
         }
-        $app = \Reaction::$app;
-        if ($app && $app instanceof ServiceLocator && $app->has($this->id)) {
-            return $app->get($this->id);
+        $serviceLocator = Container::getDefaultServiceLocator();
+        if (
+            $serviceLocator !== null
+            && $serviceLocator instanceof ServiceLocatorInterface
+            && $serviceLocator->has($this->id)
+        ) {
+            return $serviceLocator->get($this->id);
         }
 
-        return \Reaction::$di->get($this->id);
+        return Container::getDefaultContainer()->getOrCreate($this->id);
     }
 
     /**

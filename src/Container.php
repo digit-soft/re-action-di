@@ -123,6 +123,17 @@ class Container extends Component implements ExtendedContainerInterface
      */
     private $_dependencies = [];
 
+    /**
+     * {@inheritdoc}
+     */
+    public function init()
+    {
+        parent::init();
+        // Set default container instance if not set
+        if (!isset(static::$_container)) {
+            static::setDefaultContainer($this);
+        }
+    }
 
     /**
      * {@inheritdoc}

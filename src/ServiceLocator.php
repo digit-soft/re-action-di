@@ -291,7 +291,7 @@ class ServiceLocator extends Component implements ServiceLocatorInterface
             if (isset($this->_components[$componentName])) {
                 $component = $this->_components[$componentName];
             } else {
-                $className = Reaction::$di->resolveClassName($definition);
+                $className = Container::getDefaultContainer()->resolveClassName($definition);
                 if (null === $className || !ReflectionHelper::isImplements($className, 'Reaction\Base\ComponentAutoloadInterface')) {
                     continue;
                 }
@@ -330,7 +330,7 @@ class ServiceLocator extends Component implements ServiceLocatorInterface
         if (!isset($this->_definitions[$componentName]) || isset($this->_components[$componentName])) {
             return null;
         }
-        $className = Reaction::$di->resolveClassName($this->_definitions[$componentName]);
+        $className = Container::getDefaultContainer()->resolveClassName($this->_definitions[$componentName]);
         if (null !== $className && ReflectionHelper::isImplements($className, 'Reaction\Base\ComponentAutoloadInterface')) {
             $component = $this->get($componentName);
             return $component;
